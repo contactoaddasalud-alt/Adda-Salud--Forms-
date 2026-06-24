@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MDQ — Evaluación Trastorno Bipolar — Adda Salud</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f3; min-height: 100vh; padding: 1.5rem 1rem 3rem; color: #1a1a1a; }
+.form-wrap { max-width: 620px; margin: 0 auto; background: #fff; border-radius: 16px; padding: 2rem 1.75rem; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.logo-header { display: flex; align-items: center; gap: 12px; margin-bottom: 2rem; padding-bottom: 1.25rem; border-bottom: 1px solid #ebebeb; }
+.logo-dot { width: 36px; height: 36px; border-radius: 50%; background: #534AB7; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.logo-dot svg { width: 18px; height: 18px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; }
+.logo-name { font-size: 15px; font-weight: 600; color: #1a1a1a; }
+.logo-sub { font-size: 12px; color: #888; }
+.progress-bar { height: 3px; background: #ebebeb; border-radius: 2px; margin-bottom: 1.75rem; }
+.progress-fill { height: 3px; background: #534AB7; border-radius: 2px; transition: width 0.3s; }
+.section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #534AB7; margin-bottom: 0.4rem; }
+.section-title { font-size: 18px; font-weight: 600; color: #1a1a1a; margin-bottom: 0.3rem; }
+.section-desc { font-size: 13px; color: #666; margin-bottom: 1.5rem; line-height: 1.55; }
+.field-label { font-size: 13px; color: #555; margin-bottom: 6px; display: block; }
+.field-input { width: 100%; border: 1px solid #ddd; border-radius: 8px; padding: 10px 13px; font-size: 14px; color: #1a1a1a; background: #fff; margin-bottom: 14px; outline: none; transition: border-color 0.15s; }
+.field-input:focus { border-color: #534AB7; }
+.q-row { border: 1px solid #ebebeb; border-radius: 10px; padding: 0.9rem 1rem; margin-bottom: 8px; }
+.q-text { font-size: 13px; color: #1a1a1a; margin-bottom: 0.65rem; line-height: 1.5; }
+.q-yesno { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.q-btn { border: 1px solid #ddd; border-radius: 8px; padding: 8px 6px; font-size: 13px; color: #666; background: #fafafa; cursor: pointer; text-align: center; transition: all 0.15s; font-weight: 500; }
+.q-btn:hover { border-color: #534AB7; color: #3C3489; background: #EEEDFE; }
+.q-btn.sel-si { background: #534AB7; color: #fff; border-color: #534AB7; }
+.q-btn.sel-no { background: #f0f0f0; color: #888; border-color: #ddd; }
+.block-box { border: 1px solid #ebebeb; border-radius: 10px; padding: 1rem 1.1rem; margin-bottom: 10px; }
+.block-title { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 0.4rem; }
+.block-desc { font-size: 13px; color: #666; margin-bottom: 0.75rem; line-height: 1.5; }
+.radio-row { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; cursor: pointer; font-size: 13px; color: #333; }
+.radio-row input { accent-color: #534AB7; width: 15px; height: 15px; flex-shrink: 0; }
+.submit-btn { width: 100%; padding: 13px; background: #534AB7; color: #fff; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 0.75rem; transition: background 0.15s; }
+.submit-btn:hover { background: #3C3489; }
+.submit-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.sending-msg { font-size: 13px; color: #888; text-align: center; margin-top: 0.75rem; display: none; }
+.result-wrap { text-align: center; padding: 1rem 0 0.5rem; }
+.result-icon { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+.icon-pos { background: #EEEDFE; }
+.icon-neg { background: #EAF3DE; }
+.result-icon svg { width: 28px; height: 28px; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.result-title { font-size: 20px; font-weight: 600; color: #1a1a1a; margin-bottom: 0.4rem; }
+.result-sub { font-size: 14px; color: #666; margin-bottom: 1.25rem; }
+.badge { display: inline-block; padding: 4px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 1.25rem; }
+.badge-pos { background: #EEEDFE; color: #3C3489; }
+.badge-neg { background: #EAF3DE; color: #3B6D11; }
+.criteria-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 1.25rem; }
+.crit-card { border-radius: 10px; padding: 0.75rem 0.6rem; text-align: center; }
+.crit-met { background: #EEEDFE; }
+.crit-not { background: #f5f5f3; }
+.crit-label { font-size: 11px; margin-bottom: 5px; }
+.crit-met .crit-label { color: #534AB7; }
+.crit-not .crit-label { color: #888; }
+.crit-val { font-size: 13px; font-weight: 600; }
+.crit-met .crit-val { color: #3C3489; }
+.crit-not .crit-val { color: #aaa; }
+.interp-box { border: 1px solid #ebebeb; border-radius: 10px; padding: 1rem; text-align: left; margin-bottom: 1rem; }
+.interp-row { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; font-size: 13px; color: #555; line-height: 1.5; }
+.interp-row:last-child { margin-bottom: 0; }
+.interp-icon { width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px; stroke: #534AB7; fill: none; stroke-width: 2; }
+.disclaimer-box { background: #f7f7f5; border-radius: 10px; padding: 0.85rem 1rem; font-size: 12px; color: #888; line-height: 1.6; margin-bottom: 1rem; text-align: left; }
+.email-status { font-size: 13px; color: #534AB7; text-align: center; margin-top: 0.75rem; min-height: 18px; }
+.restart-btn { border: 1px solid #ddd; background: #fafafa; color: #666; padding: 9px 22px; border-radius: 8px; font-size: 13px; cursor: pointer; margin-top: 1rem; }
+.restart-btn:hover { background: #f0f0f0; }
+</style>
+</head>
+<body>
+<div class="form-wrap">
+  <div class="logo-header">
+    <div class="logo-dot">
+      <svg viewBox="0 0 24 24"><path d="M9.5 2a2.5 2.5 0 115 0v.1A7.5 7.5 0 0117 9.5v1a3 3 0 003 3v1a3 3 0 01-3 3h-1.5v2a1.5 1.5 0 01-3 0v-2h-1A3 3 0 018 14.5v-1a3 3 0 013-3v-1A7.5 7.5 0 019.5 2.1V2z"/></svg>
+    </div>
+    <div>
+      <div class="logo-name">Adda Salud</div>
+      <div class="logo-sub">Centro de bienestar integral</div>
+    </div>
+  </div>
+
+  <div id="form-view">
+    <div class="progress-bar"><div class="progress-fill" id="progress" style="width:0%"></div></div>
+
+    <div id="patient-info">
+      <div class="section-label">Cuestionario de trastornos del ánimo</div>
+      <div class="section-title">MDQ — Mood Disorder Questionnaire</div>
+      <div class="section-desc">Este cuestionario ayuda a identificar síntomas asociados al trastorno bipolar. Sus respuestas serán revisadas por tu profesional de Adda Salud. No constituye un diagnóstico.</div>
+      <label class="field-label">Nombre completo</label>
+      <input class="field-input" id="p-name" type="text" placeholder="Tu nombre completo" />
+      <label class="field-label">Correo electrónico</label>
+      <input class="field-input" id="p-email" type="email" placeholder="tucorreo@email.com" />
+      <button class="submit-btn" onclick="startForm()">Comenzar evaluación</button>
+    </div>
+
+    <div id="mdq-section" style="display:none">
+      <div class="section-label">Parte 1 de 3 — Síntomas</div>
+      <div class="section-title">¿Ha experimentado alguna vez estos estados?</div>
+      <div class="section-desc">Responde <strong>Sí</strong> o <strong>No</strong> según si alguna vez en tu vida has vivido cada situación (no necesariamente en este momento).</div>
+      <div id="mdq-questions"></div>
+
+      <div class="block-box" style="margin-top:1rem;">
+        <div class="block-title">Parte 2 de 3 — Simultaneidad</div>
+        <div class="block-desc">Si respondiste <strong>Sí</strong> a más de una pregunta anterior: ¿algunos de estos comportamientos ocurrieron durante el mismo período de tiempo?</div>
+        <label class="radio-row"><input type="radio" name="simult" value="si" onchange="updateSimult(this)"> <span>Sí, varios ocurrieron al mismo tiempo</span></label>
+        <label class="radio-row"><input type="radio" name="simult" value="no" onchange="updateSimult(this)"> <span>No / No aplica</span></label>
+      </div>
+
+      <div class="block-box">
+        <div class="block-title">Parte 3 de 3 — Impacto en tu vida</div>
+        <div class="block-desc">¿Cuánto problema te han causado estos comportamientos (en trabajo, familia, economía, problemas legales o relaciones)?</div>
+        <label class="radio-row"><input type="radio" name="problem" value="0" onchange="updateProblem(this)"> <span>Ningún problema</span></label>
+        <label class="radio-row"><input type="radio" name="problem" value="0" onchange="updateProblem(this)"> <span>Problema menor</span></label>
+        <label class="radio-row"><input type="radio" name="problem" value="1" onchange="updateProblem(this)"> <span>Problema moderado</span></label>
+        <label class="radio-row"><input type="radio" name="problem" value="1" onchange="updateProblem(this)"> <span>Problema grave</span></label>
+      </div>
+
+      <button class="submit-btn" id="mdq-submit-btn" onclick="submitForm()" disabled>Ver mis resultados</button>
+      <div class="sending-msg" id="sending-msg">Enviando resultados…</div>
+    </div>
+  </div>
+
+  <div id="result-view" style="display:none">
+    <div class="result-wrap">
+      <div class="result-icon icon-neg">
+        <svg viewBox="0 0 24 24" stroke="#1D9E75"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      </div>
+      <div class="result-title">Evaluación enviada</div>
+      <div class="result-sub" id="result-name-msg"></div>
+      <p style="font-size:14px; color:#555; line-height:1.6; max-width:420px; margin:0 auto 1.25rem;">Gracias por completar el cuestionario. Tus respuestas fueron enviadas a tu equipo de profesionales en Adda Salud, quienes las revisarán y se pondrán en contacto contigo para conversar sobre los resultados.</p>
+      <div class="disclaimer-box">⚠ Este cuestionario es una herramienta de tamizaje, no un diagnóstico. Solo un profesional de salud mental puede diagnosticar el trastorno bipolar.</div>
+      <div class="email-status" id="email-status"></div>
+      <br>
+      <button class="restart-btn" onclick="restart()">↩ Hacer otra evaluación</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var MDQ_Q = [
+  "¿Ha habido períodos en que no era su estado de ánimo habitual y se sentía tan bien o tan eufórico/a que otras personas pensaban que no estaba en su estado normal, o estaba tan eufórico/a que se metió en problemas?",
+  "¿Ha habido períodos en que no era su estado de ánimo habitual y estaba tan irritable que gritaba a la gente, se peleaba o tenía discusiones?",
+  "¿Ha habido períodos en que no era su estado de ánimo habitual y se sentía mucho más seguro/a de sí mismo/a de lo habitual?",
+  "¿Ha habido períodos en que no era su estado de ánimo habitual y dormía mucho menos de lo habitual y encontraba que no le hacía falta?",
+  "¿Ha habido períodos en que no era su estado de ánimo habitual y era mucho más hablador/a o hablaba mucho más rápido de lo habitual?",
+  "¿Ha habido períodos en que no era su estado de ánimo habitual y los pensamientos le pasaban por la cabeza tan rápidamente que no podía seguirlos?",
+  "¿Ha habido períodos en que no era su estado de ánimo habitual y se distraía con tanta facilidad que le costaba concentrarse o mantenerse en lo que estaba haciendo?",
+  "¿Ha habido períodos en que no era su estado de ánimo habitual y tenía mucha más energía de lo habitual?",
+  "¿Ha habido períodos en que no era su estado de ánimo habitual y estaba mucho más activo/a o hacía muchas más cosas de lo habitual?",
+  "¿Ha habido períodos en que no era su estado de ánimo habitual y era mucho más sociable o extrovertido/a de lo habitual?",
+  "¿Ha habido períodos en que no era su estado de ánimo habitual y tenía mucho más interés en el sexo de lo habitual?",
+  "¿Ha habido períodos en que no era su estado de ánimo habitual y hacía cosas que eran poco habituales en usted o que otras personas podrían pensar que eran excesivas, necias o arriesgadas?",
+  "¿Ha habido períodos en que no era su estado de ánimo habitual y gastar dinero le causó problemas a usted o a su familia?"
+];
+
+var mdqA = new Array(13).fill(-1);
+var simultVal = -1;
+var problemVal = -1;
+var patientName = '', patientEmail = '';
+
+function buildMDQ() {
+  var c = document.getElementById('mdq-questions');
+  c.innerHTML = '';
+  MDQ_Q.forEach(function(q, i) {
+    var div = document.createElement('div');
+    div.className = 'q-row';
+    div.innerHTML = '<div class="q-text">'+(i+1)+'. '+q+'</div><div class="q-yesno" id="opts-'+i+'"></div>';
+    c.appendChild(div);
+    var opts = div.querySelector('#opts-'+i);
+    ['Sí','No'].forEach(function(label, v) {
+      var val = v === 0 ? 1 : 0;
+      var b = document.createElement('button');
+      b.className = 'q-btn';
+      b.textContent = label;
+      b.onclick = function() {
+        mdqA[i] = val;
+        var btns = opts.querySelectorAll('.q-btn');
+        btns[0].className = 'q-btn' + (val===1?' sel-si':'');
+        btns[1].className = 'q-btn' + (val===0?' sel-no':'');
+        checkSubmit();
+        updateProgress();
+      };
+      opts.appendChild(b);
+    });
+  });
+}
+
+function updateSimult(el) { simultVal = el.value === 'si' ? 1 : 0; checkSubmit(); updateProgress(); }
+function updateProblem(el) { problemVal = parseInt(el.value); checkSubmit(); updateProgress(); }
+
+function checkSubmit() {
+  var allDone = mdqA.every(function(x){return x>-1;}) && simultVal>-1 && problemVal>-1;
+  document.getElementById('mdq-submit-btn').disabled = !allDone;
+}
+
+function updateProgress() {
+  var done = mdqA.filter(function(x){return x>-1;}).length + (simultVal>-1?1:0) + (problemVal>-1?1:0);
+  document.getElementById('progress').style.width = Math.round((done/15)*100)+'%';
+}
+
+function startForm() {
+  patientName = document.getElementById('p-name').value.trim();
+  patientEmail = document.getElementById('p-email').value.trim();
+  if (!patientName) { alert('Por favor ingresa tu nombre.'); return; }
+  document.getElementById('patient-info').style.display = 'none';
+  document.getElementById('mdq-section').style.display = 'block';
+  buildMDQ();
+  document.getElementById('progress').style.width = '3%';
+}
+
+async function submitForm() {
+  document.getElementById('mdq-submit-btn').disabled = true;
+  document.getElementById('sending-msg').style.display = 'block';
+
+  var yesCount = mdqA.reduce(function(a,b){return a+b;},0);
+  var crit1 = yesCount >= 7;
+  var crit2 = simultVal === 1;
+  var crit3 = problemVal === 1;
+  var positive = crit1 && crit2 && crit3;
+
+  var fecha = new Date().toLocaleDateString('es-CL', {day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  var detalle = MDQ_Q.map(function(q,i){ return 'P'+(i+1)+' ('+(mdqA[i]===1?'Sí':'No')+'): '+q.substring(0,70)+'...'; }).join('\n');
+  var resumen = 'EVALUACIÓN MDQ — TRASTORNO BIPOLAR\n===================================\nPaciente: '+patientName+'\nCorreo: '+(patientEmail||'No indicado')+'\nFecha: '+fecha+'\n\nRESULTADOS\n----------\nSíntomas positivos: '+yesCount+'/13 (umbral ≥7: '+(crit1?'CUMPLE':'NO CUMPLE')+')\nSimultaneidad: '+(crit2?'Sí':'No')+'\nImpacto funcional: '+(crit3?'Moderado/Grave':'Ninguno/Menor')+'\n\nRESULTADO MDQ: '+(positive?'POSITIVO — requiere evaluación clínica especializada':'NEGATIVO')+'\n\nDETALLE RESPUESTAS:\n'+detalle;
+
+  try {
+    var res = await fetch('https://formspree.io/f/maqzkzpd', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        paciente: patientName,
+        correo_paciente: patientEmail || 'No indicado',
+        formulario: 'MDQ — Trastorno Bipolar',
+        sintomas_positivos: yesCount+'/13',
+        simultaneidad: crit2?'Sí':'No',
+        impacto_funcional: crit3?'Moderado/Grave':'Ninguno/Menor',
+        resultado_mdq: positive?'POSITIVO':'NEGATIVO',
+        resumen_completo: resumen
+      })
+    });
+    document.getElementById('email-status').innerHTML = res.ok ? '✓ Resultados enviados al equipo de Adda Salud.' : 'No se pudo enviar. Muestra esta pantalla a tu profesional.';
+    if (!res.ok) document.getElementById('email-status').style.color = '#A32D2D';
+  } catch(e) {
+    document.getElementById('email-status').style.color = '#A32D2D';
+    document.getElementById('email-status').textContent = 'Error de conexión. Muestra esta pantalla a tu profesional.';
+  }
+
+  document.getElementById('sending-msg').style.display = 'none';
+  document.getElementById('form-view').style.display = 'none';
+  document.getElementById('result-view').style.display = 'block';
+  window.scrollTo(0,0);
+
+  document.getElementById('result-name-msg').textContent = 'Hola '+patientName+'.';
+
+  document.getElementById('progress').style.width = '100%';
+}
+
+function restart() {
+  mdqA = new Array(13).fill(-1);
+  simultVal = -1; problemVal = -1;
+  patientName = ''; patientEmail = '';
+  document.getElementById('p-name').value = '';
+  document.getElementById('p-email').value = '';
+  document.querySelectorAll('input[name="simult"]').forEach(function(r){r.checked=false;});
+  document.querySelectorAll('input[name="problem"]').forEach(function(r){r.checked=false;});
+  document.getElementById('result-view').style.display = 'none';
+  document.getElementById('form-view').style.display = 'block';
+  document.getElementById('mdq-section').style.display = 'none';
+  document.getElementById('patient-info').style.display = 'block';
+  document.getElementById('email-status').textContent = '';
+  document.getElementById('email-status').style.color = '#534AB7';
+  document.getElementById('progress').style.width = '0%';
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
